@@ -5,12 +5,13 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-public class Datagram extends Thread{
-    public DatagramSocket ds;
-    public SourceDataLine audio;
-    public TargetDataLine audio_out;
-    public InetAddress server_ip;
+public class DatagramAudioConnectionThread extends Thread {
+    private DatagramSocket ds;
+    private SourceDataLine audio;
+    private TargetDataLine audio_out;
+    private InetAddress server_ip;
     byte[] buf= new byte[512];
+
     @Override
     public void run() {
         DatagramPacket in =  new DatagramPacket(buf,buf.length);
@@ -28,5 +29,21 @@ public class Datagram extends Thread{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setDs(DatagramSocket ds) {
+        this.ds = ds;
+    }
+
+    public void setAudio(SourceDataLine audio) {
+        this.audio = audio;
+    }
+
+    public void setAudio_out(TargetDataLine audio_out) {
+        this.audio_out = audio_out;
+    }
+
+    public void setServer_ip(InetAddress server_ip) {
+        this.server_ip = server_ip;
     }
 }
